@@ -54,6 +54,6 @@ RUN sed -i "s/.*substack/#&/g" /etc/pam.d/sshd
 
 # restart sshd and start nginx
 CMD systemctl restart sshd.service && \
-    systemctl start nginx.service
+    systemctl enable nginx.service
 
 #CMD ["/sbin/init"]
