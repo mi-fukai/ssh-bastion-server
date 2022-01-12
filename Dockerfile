@@ -57,8 +57,7 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
 # mod /etc/pam.d/sshd
 RUN sed -i "s/.*substack/#&/g" /etc/pam.d/sshd
 
-# restart sshd and start nginx
+# restart sshd
 CMD systemctl restart sshd.service
-#    systemctl enable nginx.service
 
 #CMD ["/sbin/init"]
