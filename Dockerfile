@@ -17,9 +17,14 @@ RUN yum -y update && \
         which \
         wget \
         openssh-server \
-        openssh-clients  \
-        nginx && \
+        openssh-clients && \
     yum clean all
+
+# install nginx
+RUN amazon-linux-extras install nginx1
+
+# automatic start
+ENTRYPOINT /usr/sbin/nginx -g "daemon off;"
 
 # install aws cli v2
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -53,7 +58,7 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
 RUN sed -i "s/.*substack/#&/g" /etc/pam.d/sshd
 
 # restart sshd and start nginx
-CMD systemctl restart sshd.service && \
-    systemctl enable nginx.service
+CMD systemctl restart sshd.service
+#    systemctl enable nginx.service
 
 #CMD ["/sbin/init"]
