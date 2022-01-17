@@ -1,9 +1,5 @@
 FROM amazonlinux:2
 
-ARG AWS_ACCESS_KEY_ID
-ARG AWS_SECRET_ACCESS_KEY
-ARG AWS_REGION=us-west-2
-
 # copy the public key file to the /tmp directory of the Docker image
 COPY ./id_rsa.pub /tmp/
 
