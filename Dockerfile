@@ -20,7 +20,7 @@ RUN yum -y update && \
         which \
         wget \
         openssh-server \
-        openssh-clients  && \
+        openssh-clients \
         nginx && \
     yum clean all
 
