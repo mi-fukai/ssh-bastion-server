@@ -9,6 +9,8 @@ RUN amazon-linux-extras install -y epel
 # yum update & install
 RUN yum -y update && \
     yum -y install \
+        shadow-utils \
+        procps \
         systemd \
         tar \
         unzip \
@@ -54,10 +56,4 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
     echo "   AuthenticationMethods publickey" >> /etc/ssh/sshd_config && \
     echo "   PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
-# mod /etc/pam.d/sshd
-RUN sed -i "s/.*substack/#&/g" /etc/pam.d/sshd
-
-# restart sshd
-CMD systemctl restart sshd.service
-
-#CMD ["/sbin/init"]
+CMD /sbin/init
