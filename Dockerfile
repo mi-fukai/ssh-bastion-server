@@ -57,4 +57,6 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
     echo "   AuthenticationMethods publickey" >> /etc/ssh/sshd_config && \
     echo "   PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
+RUN systemctl start sshd.service
+
 CMD ["/sbin/init"]
