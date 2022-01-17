@@ -12,6 +12,7 @@ RUN yum -y update && \
         shadow-utils \
         procps \
         systemd \
+        net-tools \
         tar \
         unzip \
         sudo \
@@ -56,4 +57,4 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
     echo "   AuthenticationMethods publickey" >> /etc/ssh/sshd_config && \
     echo "   PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
-CMD /sbin/init
+CMD ["/sbin/init"]
