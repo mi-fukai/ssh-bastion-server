@@ -30,6 +30,9 @@ RUN mkdir /var/run/sshd
 RUN systemctl enable sshd.service && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
+# start nginx
+RUN systemctl enable nginx.service
+
 # create user
 RUN useradd -m -d /home/ec2-user -s /bin/bash ec2-user && \
     echo "ec2-user ALL=NOPASSWD: ALL" >> /etc/sudoers && \
