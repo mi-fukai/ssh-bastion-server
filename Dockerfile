@@ -21,6 +21,7 @@ RUN yum -y update && \
         wget \
         openssh-server \
         openssh-clients  && \
+        nginx && \
     yum clean all
 
 RUN mkdir /var/run/sshd
@@ -55,18 +56,3 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && \
     sudo ./aws/install && \
     sudo ln -s -f /usr/local/bin/aws /bin/aws
-
-# install nginx
-RUN amazon-linux-extras install nginx1
-
-# automatic start
-ENTRYPOINT /usr/sbin/nginx -g "daemon off;"
-
-EXPOSE 22
-
-# create host key
-RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key && \
-    ssh-keygen -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key && \
-    ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
-
-CMD ["/usr/sbin/sshd", "-D"]
