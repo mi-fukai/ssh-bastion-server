@@ -23,6 +23,8 @@ RUN yum -y update && \
         openssh-clients  && \
     yum clean all
 
+RUN mkdir /var/run/sshd
+
 # start sshd
 RUN systemctl enable sshd.service && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
@@ -59,3 +61,12 @@ RUN amazon-linux-extras install nginx1
 
 # automatic start
 ENTRYPOINT /usr/sbin/nginx -g "daemon off;"
+
+EXPOSE 22
+
+# create host key
+RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
+
+CMD ["/usr/sbin/sshd", "-D"]
