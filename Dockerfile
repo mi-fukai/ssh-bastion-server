@@ -57,3 +57,9 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && \
     sudo ./aws/install && \
     sudo ln -s -f /usr/local/bin/aws /bin/aws
+
+# install nginx
+RUN amazon-linux-extras install nginx1
+
+# automatic start
+ENTRYPOINT /usr/sbin/nginx -g "daemon off;"
