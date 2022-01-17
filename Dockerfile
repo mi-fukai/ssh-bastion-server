@@ -35,8 +35,8 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     sudo ./aws/install
 
 # start sshd
-RUN systemctl enable sshd.service && \
-    echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+RUN systemctl enable sshd.service
+RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
 # create user
 RUN useradd -m -d /home/fukai-test -s /bin/bash fukai-test && \
@@ -56,7 +56,5 @@ RUN sed -i "/^ChallengeResponseAuthentication/d" /etc/ssh/sshd_config && \
     echo "Match User fukai-test" >> /etc/ssh/sshd_config && \
     echo "   AuthenticationMethods publickey" >> /etc/ssh/sshd_config && \
     echo "   PubkeyAuthentication yes" >> /etc/ssh/sshd_config
-
-RUN systemctl start sshd.service
 
 CMD ["/sbin/init"]
