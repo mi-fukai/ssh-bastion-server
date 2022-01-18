@@ -60,6 +60,10 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     sudo ./aws/install && \
     sudo ln -s -f /usr/local/bin/aws /bin/aws
 
+# exporse ports
+EXPOSE 22
+EXPOSE 80
+
 # start services
 COPY entrypoint.sh /usr/bin/
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
