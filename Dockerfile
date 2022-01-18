@@ -59,3 +59,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && \
     sudo ./aws/install && \
     sudo ln -s -f /usr/local/bin/aws /bin/aws
+
+# start services
+ENTRYPOINT /sbin/init && /usr/sbin/sshd -D && /usr/sbin/nginx
