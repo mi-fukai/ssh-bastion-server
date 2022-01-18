@@ -61,4 +61,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     sudo ln -s -f /usr/local/bin/aws /bin/aws
 
 # start services
-ENTRYPOINT /sbin/init && /usr/sbin/sshd -D && /usr/sbin/nginx
+COPY entrypoint.sh /usr/bin/
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD [ "/sbin/init" ]
