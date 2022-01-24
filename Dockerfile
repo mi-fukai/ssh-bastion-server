@@ -67,5 +67,4 @@ EXPOSE 80
 # start services
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-CMD [ "/sbin/init" ]
+CMD [ "/usr/bin/entrypoint.sh" ]
