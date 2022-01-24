@@ -32,7 +32,6 @@ RUN systemctl enable sshd.service && \
 
 # start nginx
 RUN systemctl enable nginx.service
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # create user
 RUN useradd -m -d /home/ec2-user -s /bin/bash ec2-user && \
@@ -66,5 +65,7 @@ EXPOSE 22
 EXPOSE 80
 
 # start services
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD [ "/sbin/init" ]
