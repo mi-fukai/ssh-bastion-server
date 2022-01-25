@@ -1,8 +1,0 @@
-version: "2"
-services:
-  bastion-server-container:
-    build: .
-    container_name: bastion-server-container
-    privileged: true
-    ports:
-      - "2222:22"
