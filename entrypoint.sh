@@ -1,5 +1,5 @@
 #!/bin/bash
-exec /sbin/init
-systemctl daemon-reload
-systemctl start sshd.service
-systemctl start nginx.service
+set -m
+/usr/sbin/nginx -g 'daemon off;' &
+/usr/sbin/sshd -D
+fg %1

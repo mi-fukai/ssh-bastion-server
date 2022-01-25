@@ -64,7 +64,12 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 EXPOSE 22
 EXPOSE 80
 
+# create host key
+RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
+
 # start services
 COPY entrypoint.sh /usr/bin/
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-CMD [ "/sbin/init" ]
+RUN chmod +x /usr/bin/entrypoint.sh
+CMD [ "/usr/bin/entrypoint.sh" ]
