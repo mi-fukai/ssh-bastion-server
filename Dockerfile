@@ -21,6 +21,8 @@ RUN yum -y update && \
         wget \
         openssh-server \
         openssh-clients \
+        openssl \
+        openssl-libs \
         nginx && \
     yum clean all
 
