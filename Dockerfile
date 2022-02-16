@@ -30,6 +30,9 @@ RUN mkdir /var/run/sshd
 RUN systemctl enable sshd.service && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
+# Self-signed certificate creation
+RUN openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj /CN=localhost -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
+
 # start nginx
 COPY ./default.conf /etc/nginx/conf.d/
 RUN systemctl enable nginx.service
