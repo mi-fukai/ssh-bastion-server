@@ -31,6 +31,7 @@ RUN systemctl enable sshd.service && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
 # start nginx
+COPY ./default.conf /etc/nginx/conf.d/
 RUN systemctl enable nginx.service
 
 # create user
