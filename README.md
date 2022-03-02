@@ -3,7 +3,7 @@ SSH接続用サーバ兼、OpenSearch Dashboardsアクセス用プロキシー�
 
 <BR>
 
-# 環境
+# 構成
 - OS
   - Amazon Linux2
 - ユーザー
