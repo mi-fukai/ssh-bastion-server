@@ -1,7 +1,7 @@
 server {
     listen 443;
     server_name $host;
-    rewrite ^/$ https://$host/_dashboards redirect;
+    rewrite ^/$ https://$host/_plugin/kibana redirect;
 
     ssl_certificate           /etc/nginx/cert.crt;
     ssl_certificate_key       /etc/nginx/cert.key;
@@ -12,16 +12,16 @@ server {
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
-    location /_dashboards {
+    location /_plugin/kibana {
         # Forward requests to Dashboards
-        proxy_pass https://$domain-endpoint/_dashboards;
+        proxy_pass https://vpc-hrjoboffer-dev-xeurlaoavsjteppcqcoyrbqsmm.ap-northeast-1.es.amazonaws.com/_plugin/kibana;
 
         # Handle redirects to Cognito
-        proxy_redirect https://$cognito_host https://$host;
+        proxy_redirect https://hrjoboffer-dev-login.auth.ap-northeast-1.amazoncognito.com https://$host;
 
         # Update cookie domain and path
-        proxy_cookie_domain $domain-endpoint $host;
-        proxy_cookie_path / /_dashboards/;
+        proxy_cookie_domain vpc-hrjoboffer-dev-xeurlaoavsjteppcqcoyrbqsmm.ap-northeast-1.es.amazonaws.com $host;
+        proxy_cookie_path / /_plugin/kibana/;
 
         # Response buffer settings
         proxy_buffer_size 128k;
@@ -31,12 +31,12 @@ server {
 
     location ~ \/(log|sign|fav|forgot|change|saml|oauth2) {
         # Forward requests to Cognito
-        proxy_pass https://$cognito_host;
+        proxy_pass https://hrjoboffer-dev-login.auth.ap-northeast-1.amazoncognito.com;
 
         # Handle redirects to Dashboards
-        proxy_redirect https://$domain-endpoint https://$host;
+        proxy_redirect https://vpc-hrjoboffer-dev-xeurlaoavsjteppcqcoyrbqsmm.ap-northeast-1.es.amazonaws.com https://$host;
 
         # Update cookie domain
-        proxy_cookie_domain $cognito_host $host;
+        proxy_cookie_domain hrjoboffer-dev-login.auth.ap-northeast-1.amazoncognito.com $host;
     }
 }
