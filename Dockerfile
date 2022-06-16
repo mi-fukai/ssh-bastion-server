@@ -33,7 +33,7 @@ RUN systemctl enable sshd.service && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
 # Self-signed certificate creation
-RUN openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj /CN=localhost -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
+#RUN openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj /CN=localhost -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
 
 # start nginx
 COPY ./default.conf /etc/nginx/conf.d/
@@ -68,7 +68,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 
 # exporse ports
 EXPOSE 22
-EXPOSE 80
+EXPOSE 5000
 
 # create host key
 RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key && \
